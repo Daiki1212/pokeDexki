@@ -1,6 +1,6 @@
 package Pokeapi
 
-type Encounters struct {
+type Location struct {
 	Name             string `json:"name"`
 	Id               int    `json:"id"`
 	PokemonEncounter []struct {

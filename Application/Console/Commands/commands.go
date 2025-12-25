@@ -5,7 +5,7 @@ import "github.com/Daiki1212/pokeDexki/Services/Pokeapi"
 type cliCommand struct {
 	name        string
 	description string
-	Callback    func(config *Pokeapi.Config, queryParam string) error
+	Callback    func(config *Pokeapi.Config, queryParam string, pokedex *map[string]Pokeapi.Pokemon) error
 }
 
 func GetCommands() map[string]cliCommand {
@@ -29,6 +29,16 @@ func GetCommands() map[string]cliCommand {
 			name:        "explore <location>",
 			description: "Explore the Pokemons of a location! <location> needs to be the id or name of a location",
 			Callback:    CommandExplore,
+		},
+		"catch": {
+			name:        "catch <pokemon>",
+			description: "Tries to Catch a Pokemon! <pokemon> needs to be the name of a Pokemon",
+			Callback:    CommandCatch,
+		},
+		"inspect": {
+			name:        "inspect <pokemon>",
+			description: "Inspects a Pokemon! <pokemon> needs to be the name of a Pokemon",
+			Callback:    CommandInspect,
 		},
 		"exit": {
 			name:        "exit",

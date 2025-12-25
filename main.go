@@ -6,5 +6,7 @@ import (
 
 func main() {
 	cfg := Pokeapi.NewConfig()
-	startRepl(&cfg)
+	// TODO: put the pokedex in a specific Struct for better maintainability
+	pokedex := map[string]Pokeapi.Pokemon{}
+	startRepl(&cfg, &pokedex)
 }

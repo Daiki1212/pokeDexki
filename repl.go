@@ -10,7 +10,7 @@ import (
 	"github.com/Daiki1212/pokeDexki/Services/Pokeapi"
 )
 
-func startRepl(cfg *Pokeapi.Config) {
+func startRepl(cfg *Pokeapi.Config, pokedex *map[string]Pokeapi.Pokemon) {
 	reader := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print("Pokedex > ")
@@ -26,7 +26,7 @@ func startRepl(cfg *Pokeapi.Config) {
 
 		command, exists := Commands.GetCommands()[commandName]
 		if exists {
-			err := command.Callback(cfg, queryParams)
+			err := command.Callback(cfg, queryParams, pokedex)
 			if err != nil {
 				fmt.Println(err)
 			}

@@ -6,7 +6,7 @@ import (
 	"github.com/Daiki1212/pokeDexki/Services/Pokeapi"
 )
 
-func CommandExplore(cfg *Pokeapi.Config, location string) error {
+func CommandExplore(cfg *Pokeapi.Config, location string, _ *map[string]Pokeapi.Pokemon) error {
 	locationList, err := cfg.PokeapiClient.GetLocation(location)
 	if err != nil {
 		return err
