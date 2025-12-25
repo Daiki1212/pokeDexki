@@ -6,7 +6,7 @@ import (
 	"github.com/Daiki1212/pokeDexki/Services/Pokeapi"
 )
 
-func CommandHelp(_ *Pokeapi.Config) error {
+func CommandHelp(_ *Pokeapi.Config, _ string) error {
 	fmt.Println()
 	fmt.Println("Welcome to the Pokedex!")
 	fmt.Println("Usage:")

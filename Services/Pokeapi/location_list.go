@@ -1,24 +1,35 @@
 package Pokeapi
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"io"
+)
 
-func (c Client) List(pageUrl *string) (ResponseLocations, error) {
+func (c Client) ListLocations(pageUrl *string) (ResponseLocations, error) {
 	url := baseUrl + locationPath
 	if pageUrl != nil {
 		url = *pageUrl
 	}
 
-	res, err := c.httpClient.Get(url)
-	if err != nil {
-		return ResponseLocations{}, err
+	body, exists := c.cache.Get(url)
+	if !exists {
+		response, err := c.httpClient.Get(url)
+		if err != nil {
+			return ResponseLocations{}, err
+		}
+		defer response.Body.Close()
+
+		body, err = io.ReadAll(response.Body)
+		if err != nil {
+			return ResponseLocations{}, err
+		}
+
+		c.cache.Add(url, body)
 	}
-	defer res.Body.Close()
 
 	locationList := ResponseLocations{}
-	decoder := json.NewDecoder(res.Body)
-	if err = decoder.Decode(&locationList); err != nil {
+	if err := json.Unmarshal(body, &locationList); err != nil {
 		return ResponseLocations{}, err
 	}
-
 	return locationList, nil
 }

@@ -5,7 +5,7 @@ import "github.com/Daiki1212/pokeDexki/Services/Pokeapi"
 type cliCommand struct {
 	name        string
 	description string
-	Callback    func(config *Pokeapi.Config) error
+	Callback    func(config *Pokeapi.Config, queryParam string) error
 }
 
 func GetCommands() map[string]cliCommand {
@@ -24,6 +24,11 @@ func GetCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "Get the previous page of locations",
 			Callback:    CommandMapb,
+		},
+		"explore": {
+			name:        "explore <location>",
+			description: "Explore the Pokemons of a location! <location> needs to be the id or name of a location",
+			Callback:    CommandExplore,
 		},
 		"exit": {
 			name:        "exit",

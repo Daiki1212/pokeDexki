@@ -22,10 +22,11 @@ func startRepl(cfg *Pokeapi.Config) {
 		}
 
 		commandName := words[0]
+		queryParams := strings.Join(words[1:], " ")
 
 		command, exists := Commands.GetCommands()[commandName]
 		if exists {
-			err := command.Callback(cfg)
+			err := command.Callback(cfg, queryParams)
 			if err != nil {
 				fmt.Println(err)
 			}

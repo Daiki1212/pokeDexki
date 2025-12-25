@@ -7,8 +7,8 @@ import (
 	"github.com/Daiki1212/pokeDexki/Services/Pokeapi"
 )
 
-func CommandMapf(cfg *Pokeapi.Config) error {
-	locationResponse, err := cfg.PokeapiClient.List(cfg.NextLocationsURL)
+func CommandMapf(cfg *Pokeapi.Config, _ string) error {
+	locationResponse, err := cfg.PokeapiClient.ListLocations(cfg.NextLocationsURL)
 	if err != nil {
 		return err
 	}
@@ -21,12 +21,12 @@ func CommandMapf(cfg *Pokeapi.Config) error {
 	return nil
 }
 
-func CommandMapb(cfg *Pokeapi.Config) error {
+func CommandMapb(cfg *Pokeapi.Config, _ string) error {
 	if cfg.PrevLocationsURL == nil {
 		return errors.New("you're on the first page")
 	}
 
-	locationResponse, err := cfg.PokeapiClient.List(cfg.PrevLocationsURL)
+	locationResponse, err := cfg.PokeapiClient.ListLocations(cfg.PrevLocationsURL)
 	if err != nil {
 		return err
 	}
